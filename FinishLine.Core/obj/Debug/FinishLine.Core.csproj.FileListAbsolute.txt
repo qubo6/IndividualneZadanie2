@@ -1,0 +1,5 @@
+C:\Users\mikulapeter\Documents\Visual Studio 2017\Projects\WindowsFormsApp1\FinishLine.Core\bin\Debug\FinishLine.Core.dll
+C:\Users\mikulapeter\Documents\Visual Studio 2017\Projects\WindowsFormsApp1\FinishLine.Core\bin\Debug\FinishLine.Core.pdb
+C:\Users\mikulapeter\Documents\Visual Studio 2017\Projects\WindowsFormsApp1\FinishLine.Core\obj\Debug\FinishLine.Core.csproj.CoreCompileInputs.cache
+C:\Users\mikulapeter\Documents\Visual Studio 2017\Projects\WindowsFormsApp1\FinishLine.Core\obj\Debug\FinishLine.Core.dll
+C:\Users\mikulapeter\Documents\Visual Studio 2017\Projects\WindowsFormsApp1\FinishLine.Core\obj\Debug\FinishLine.Core.pdb
