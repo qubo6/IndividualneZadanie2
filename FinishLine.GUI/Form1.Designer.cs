@@ -28,13 +28,57 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.pretekyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pretekaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip1.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.pretekyToolStripMenuItem,
+            this.pretekaryToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(800, 24);
+            this.menuStrip1.TabIndex = 0;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // pretekyToolStripMenuItem
+            // 
+            this.pretekyToolStripMenuItem.Name = "pretekyToolStripMenuItem";
+            this.pretekyToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
+            this.pretekyToolStripMenuItem.Text = "Preteky";
+            // 
+            // pretekaryToolStripMenuItem
+            // 
+            this.pretekaryToolStripMenuItem.Name = "pretekaryToolStripMenuItem";
+            this.pretekaryToolStripMenuItem.Size = new System.Drawing.Size(68, 20);
+            this.pretekaryToolStripMenuItem.Text = "Pretekáry";
+            this.pretekaryToolStripMenuItem.Click += new System.EventHandler(this.pretekaryToolStripMenuItem_Click);
+            // 
+            // Form1
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Form1";
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
+            this.Name = "Form1";
+            this.Text = "Kros Preteky";
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion
+
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem pretekyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pretekaryToolStripMenuItem;
     }
 }
 
