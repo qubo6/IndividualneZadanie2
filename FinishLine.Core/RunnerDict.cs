@@ -6,21 +6,21 @@ using System.Threading.Tasks;
 
 namespace FinishLine.Core
 {
-    public class RunnerList
+    public static class RunnerDict
     {
         
-        public Dictionary<int, Runner> RunnerDikt = new Dictionary<int, Runner>();
+        public static Dictionary<int, Runner> RunnerDikt = new Dictionary<int, Runner>();
         public static int LastId = 0;
-        public int GetNextId()
+        public static int GetNextId()
         {
             return LastId++;
         }
 
-        public bool CanUseId(int id)
+        public static bool CanUseId(int id)
         {
             return !RunnerDikt.ContainsKey(id);
         }
-        public void AddNewRunner(int id, string name, string gender, int age, string nation)
+        public static void AddNewRunner(int id, string name, string gender, int age, string nation)
         {
             Runner runner = new Runner(id, name, gender, age, nation);
             RunnerDikt.Add(id,runner);

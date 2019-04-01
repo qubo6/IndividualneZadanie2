@@ -42,6 +42,8 @@
             this.cmbNation = new System.Windows.Forms.ComboBox();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
+            this.btnLoad = new System.Windows.Forms.Button();
+            this.btnDelete = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -101,12 +103,10 @@
             // rbMale
             // 
             this.rbMale.AutoSize = true;
-            this.rbMale.Checked = true;
             this.rbMale.Location = new System.Drawing.Point(33, 16);
             this.rbMale.Name = "rbMale";
             this.rbMale.Size = new System.Drawing.Size(45, 17);
             this.rbMale.TabIndex = 0;
-            this.rbMale.TabStop = true;
             this.rbMale.Tag = "Muž";
             this.rbMale.Text = "Muž";
             this.rbMale.UseVisualStyleBackColor = true;
@@ -164,9 +164,9 @@
             // 
             this.btnAdd.Location = new System.Drawing.Point(347, 20);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(75, 23);
+            this.btnAdd.Size = new System.Drawing.Size(93, 23);
             this.btnAdd.TabIndex = 10;
-            this.btnAdd.Text = "Pridať";
+            this.btnAdd.Text = "Pridať bežca";
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
@@ -174,16 +174,39 @@
             // 
             this.btnUpdate.Location = new System.Drawing.Point(347, 50);
             this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(75, 23);
+            this.btnUpdate.Size = new System.Drawing.Size(93, 23);
             this.btnUpdate.TabIndex = 11;
-            this.btnUpdate.Text = "Zmeň";
+            this.btnUpdate.Text = "Zmeň bežca";
             this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
+            // 
+            // btnLoad
+            // 
+            this.btnLoad.Location = new System.Drawing.Point(347, 108);
+            this.btnLoad.Name = "btnLoad";
+            this.btnLoad.Size = new System.Drawing.Size(93, 23);
+            this.btnLoad.TabIndex = 12;
+            this.btnLoad.Text = "Načítaj bežcov";
+            this.btnLoad.UseVisualStyleBackColor = true;
+            this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.Location = new System.Drawing.Point(347, 79);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(93, 23);
+            this.btnDelete.TabIndex = 13;
+            this.btnDelete.Text = "Vymaž bežca";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // RacersForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(511, 458);
+            this.Controls.Add(this.btnDelete);
+            this.Controls.Add(this.btnLoad);
             this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.cmbNation);
@@ -222,5 +245,7 @@
         private System.Windows.Forms.ComboBox cmbNation;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnUpdate;
+        private System.Windows.Forms.Button btnLoad;
+        private System.Windows.Forms.Button btnDelete;
     }
 }

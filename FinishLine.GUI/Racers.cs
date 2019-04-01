@@ -14,17 +14,18 @@ namespace FinishLine
     public partial class RacersForm : Form
     {
         private string _gender;
-        private RunnerList _runnerList;
-        public RacersForm(RunnerList runnerList)
+        public RacersForm()
         {
             InitializeComponent();
             LoadCountries();
-            _runnerList = runnerList;
-            txtId.Text= _runnerList.GetNextId().ToString();
+
+            txtId.Text = RunnerDict.GetNextId().ToString();
+            dataGridView1.Refresh();
+            
         }
         public void LoadCountries()
         {
-            cmbNation.DataSource = CountryCatalog.ReadCSV();
+            cmbNation.DataSource = FileManager.ReadCSV();
             cmbNation.DisplayMember = (nameof(Country.NameSVK));
             cmbNation.ValueMember = (nameof(Country.Abbr));
         }
@@ -60,13 +61,17 @@ namespace FinishLine
                 return new Tuple<bool, string>(true, correctStr);
             }
             return new Tuple<bool, string>(false, correctStr);
-        }
+        }        
         private void rbGender_CheckedChanged(object sender, EventArgs e)
         {
             var radioButton = (RadioButton)sender;
             if (radioButton.Checked)
             {
                 _gender = radioButton.Tag.ToString();
+            }
+            else
+            {
+                ShowError("Vyber pohlavie!");
             }
         }
         private void btnAdd_Click(object sender, EventArgs e)
@@ -76,7 +81,7 @@ namespace FinishLine
                 ShowError("Id musí byť číslo");
                 return;
             }
-            if (!_runnerList.CanUseId(xid.Item2))
+            if (!RunnerDict.CanUseId(xid.Item2))
             {
                 ShowError("Id už existuje");
                 return;
@@ -98,10 +103,51 @@ namespace FinishLine
             string name = xname.Item2;
             string gender = _gender;
             string nation = cmbNation.SelectedValue.ToString();
+
+            RunnerDict.AddNewRunner(id, name, gender, age, nation);            
+            dataGridView1.DataSource = RunnerDict.RunnerDikt.Values.ToList();
+            FileManager.SaveDict();
+            txtId.Clear();
+            txtName.Clear();
+            txtAge.Clear();
+
+        }
+        private void btnLoad_Click(object sender, EventArgs e)
+        {
+            dataGridView1.DataSource=FileManager.LoadDict().Values.ToList();
+        }
+        private void LoadRunner(Runner loadRunner)
+        {
+            txtId.Text = loadRunner.Id.ToString();
+            txtAge.Text = loadRunner.Age.ToString();
+            txtName.Text = loadRunner.Name;
+            if (loadRunner.Gender == "Muž")
+            {
+                rbMale.Checked = true;
+            }
+            if (loadRunner.Gender == "žena")
+            {
+                rbFemale.Checked = true;
+            }
+            cmbNation.Text = loadRunner.Nation;
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            LoadRunner(RunnerDict.RunnerDikt[(int)dataGridView1.SelectedRows[0].Cells[0].Value]);
+            RemoveRunner((int)dataGridView1.SelectedRows[0].Cells[0].Value);
+        }
+        public void RemoveRunner(int id)
+        {
+            RunnerDict.RunnerDikt.Remove(id);
             
-            _runnerList.AddNewRunner(id, name, gender, age, nation);
-            
-            dataGridView1.DataSource = _runnerList.RunnerDikt.Values.ToList();
-        }       
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            RemoveRunner((int)dataGridView1.SelectedRows[0].Cells[0].Value);
+            FileManager.SaveDict();
+            dataGridView1.Refresh();
+        }
     }
 }

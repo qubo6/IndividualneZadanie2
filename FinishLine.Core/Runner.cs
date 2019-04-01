@@ -22,6 +22,17 @@ namespace FinishLine.Core
             Age = age;
             Nation = nation;
         }
+        public string DescribeRunner()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append($"{Id}\t");
+            sb.Append($"{Name}\t");
+            sb.Append($"{Gender}\t");
+            sb.Append($"{Age}\t");
+            sb.Append($"{Nation}\n");
+            return sb.ToString();
+        }
+
 
 
     }
