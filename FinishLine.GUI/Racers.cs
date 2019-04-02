@@ -21,19 +21,31 @@ namespace FinishLine
 
             txtId.Text = RunnerDict.GetNextId().ToString();
             dataGridView1.Refresh();
-            
+
         }
+        /// <summary>
+        /// načítanie krajín do comboboxu
+        /// </summary>
         public void LoadCountries()
         {
             cmbNation.DataSource = FileManager.ReadCSV();
             cmbNation.DisplayMember = (nameof(Country.NameSVK));
             cmbNation.ValueMember = (nameof(Country.Abbr));
         }
+        /// <summary>
+        /// vlastná metóda na výpis
+        /// </summary>
+        /// <param name="input"></param>
         public void ShowError(string input)
         {
             MessageBox.Show(input);
         }
-        public Tuple<bool,int> IsCorrectId(string input)
+        /// <summary>
+        /// validácia Id
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public Tuple<bool, int> IsCorrectId(string input)
         {
             int IdR = 0;
             bool isOk = int.TryParse(input, out IdR);
@@ -43,7 +55,12 @@ namespace FinishLine
             }
             return new Tuple<bool, int>(false, IdR);
         }
-        public Tuple<bool,int> IsCorrectAge(string input)
+        /// <summary>
+        /// validácia veku
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public Tuple<bool, int> IsCorrectAge(string input)
         {
             int ageR = 0;
             bool isOk = int.TryParse(input, out ageR);
@@ -53,15 +70,25 @@ namespace FinishLine
             }
             return new Tuple<bool, int>(false, ageR);
         }
+        /// <summary>
+        /// validácia mena
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public Tuple<bool, string> IsCorrectName(string input)
         {
             string correctStr = input;
-            if (!string.IsNullOrEmpty(correctStr))            
+            if (!string.IsNullOrEmpty(correctStr))
             {
                 return new Tuple<bool, string>(true, correctStr);
             }
             return new Tuple<bool, string>(false, correctStr);
-        }        
+        }
+        /// <summary>
+        /// validácia pohlavia
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void rbGender_CheckedChanged(object sender, EventArgs e)
         {
             var radioButton = (RadioButton)sender;
@@ -69,15 +96,17 @@ namespace FinishLine
             {
                 _gender = radioButton.Tag.ToString();
             }
-            else
-            {
-                ShowError("Vyber pohlavie!");
-            }
         }
+        /// <summary>
+        /// pridanie bežca do zoznamu
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAdd_Click(object sender, EventArgs e)
         {
             var xid = IsCorrectId(txtId.Text);
-            if (!xid.Item1) {
+            if (!xid.Item1)
+            {
                 ShowError("Id musí byť číslo");
                 return;
             }
@@ -104,18 +133,35 @@ namespace FinishLine
             string gender = _gender;
             string nation = cmbNation.SelectedValue.ToString();
 
-            RunnerDict.AddNewRunner(id, name, gender, age, nation);            
+            RunnerDict.AddNewRunner(id, name, gender, age, nation);
             dataGridView1.DataSource = RunnerDict.RunnerDikt.Values.ToList();
             FileManager.SaveDict();
             txtId.Clear();
             txtName.Clear();
             txtAge.Clear();
-
         }
+        /// <summary>
+        /// načítanie dictionary zo súboru
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnLoad_Click(object sender, EventArgs e)
         {
-            dataGridView1.DataSource=FileManager.LoadDict().Values.ToList();
+            try
+            {
+                    dataGridView1.DataSource = FileManager.LoadDict().Values.ToList();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
         }
+        /// <summary>
+        /// metoda načítanie označeného bežca z DGV do komponentov
+        /// </summary>
+        /// <param name="loadRunner"></param>
         private void LoadRunner(Runner loadRunner)
         {
             txtId.Text = loadRunner.Id.ToString();
@@ -131,23 +177,41 @@ namespace FinishLine
             }
             cmbNation.Text = loadRunner.Nation;
         }
-
+        /// <summary>
+        /// update bežca-je potrebné označiť riadok-kliknuť na btnUpdate a prepísať, následne je potrebné uložiž ho pomocou btnAdd
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             LoadRunner(RunnerDict.RunnerDikt[(int)dataGridView1.SelectedRows[0].Cells[0].Value]);
             RemoveRunner((int)dataGridView1.SelectedRows[0].Cells[0].Value);
         }
+        /// <summary>
+        /// vymazanie bežca
+        /// </summary>
+        /// <param name="id"></param>
         public void RemoveRunner(int id)
         {
             RunnerDict.RunnerDikt.Remove(id);
-            
         }
-
+        /// <summary>
+        /// vymazanie bežca na označenom riadku
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnDelete_Click(object sender, EventArgs e)
         {
             RemoveRunner((int)dataGridView1.SelectedRows[0].Cells[0].Value);
             FileManager.SaveDict();
-            dataGridView1.Refresh();
+            //dataGridView1.DataSource = null;
+            //dataGridView1.DataSource = FileManager.LoadDict().Values.ToList();
+            //dataGridView1.Rows.RemoveAt((int)dataGridView1.SelectedRows[0].Cells[0].Value);
+            //dataGridView1.Refresh();
+            //dataGridView1.Update();
+            //dataGridView1.Rows.Clear();
+            //dataGridView1.DataSource = FileManager.LoadDict().Values.ToList();
+
         }
     }
 }

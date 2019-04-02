@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace FinishLine.Core
 {
+    /// <summary>
+    /// trieda krajina s property názov a skratka krajiny
+    /// </summary>
     public class Country
     {
         public string NameSVK { get; set; }
